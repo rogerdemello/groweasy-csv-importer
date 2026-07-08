@@ -36,7 +36,10 @@ the cleaned, validated records back to the browser.
 
 ## Live demo & deployment
 
-**Hosted URL:** _add after deploying (Render)_
+**Hosted URL:** https://groweasy-csv-importer-e14t.onrender.com
+
+> Hosted on Render's free tier — the service may cold-start (~30–50s) on the first
+> request after a period of inactivity, then stays fast.
 
 ### Deploy on Render (one service)
 
