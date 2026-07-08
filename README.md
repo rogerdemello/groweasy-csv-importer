@@ -275,6 +275,10 @@ incremental parsing · per-batch retry with heuristic fallback · virtualized ta
 (smooth on large CSVs) · dark mode · unit tests · Dockerfile · Render blueprint ·
 CRM CSV export · this README.
 
+UI is styled to match the GrowEasy product: brand green, an orange primary CTA,
+GrowEasy-style status pills (Sale Done / Good Lead / Did Not Connect / Bad Lead),
+a "Download Sample CSV Template" button, and a 5 MB upload limit.
+
 ---
 
 ## Limitations

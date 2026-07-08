@@ -1,7 +1,7 @@
 "use client";
 
 import { FileSpreadsheet } from "lucide-react";
-import type { ParsedCsv } from "@/lib/csv";
+import { formatBytes, type ParsedCsv } from "@/lib/csv";
 import { VirtualTable, type Column } from "./VirtualTable";
 
 interface PreviewTableProps {
@@ -14,10 +14,15 @@ export function PreviewTable({ parsed }: PreviewTableProps) {
 
   return (
     <div className="space-y-3">
-      <div className="flex flex-wrap items-center justify-between gap-2">
-        <div className="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-300">
-          <FileSpreadsheet className="h-4 w-4 text-brand-500" />
-          <span className="font-medium">{parsed.filename}</span>
+      <div className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-slate-200 bg-white p-3 dark:border-slate-800 dark:bg-slate-900">
+        <div className="flex items-center gap-3">
+          <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-brand-100 text-brand-600 dark:bg-brand-500/15 dark:text-brand-400">
+            <FileSpreadsheet className="h-5 w-5" />
+          </div>
+          <div className="min-w-0">
+            <div className="truncate text-sm font-semibold text-slate-800 dark:text-slate-100">{parsed.filename}</div>
+            <div className="text-xs text-slate-500 dark:text-slate-400">{formatBytes(parsed.size)}</div>
+          </div>
         </div>
         <div className="text-sm text-slate-500 dark:text-slate-400">
           <span className="font-semibold text-slate-700 dark:text-slate-200">{parsed.rows.length.toLocaleString()}</span> rows ·{" "}

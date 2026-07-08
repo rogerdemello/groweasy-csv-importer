@@ -10,9 +10,28 @@ export interface ParsedCsv {
   headers: string[];
   rows: Record<string, string>[];
   filename: string;
+  /** File size in bytes. */
+  size: number;
 }
 
 export class CsvParseError extends Error {}
+
+/** Maximum accepted upload size, matching the GrowEasy importer (5 MB). */
+export const MAX_FILE_BYTES = 5 * 1024 * 1024;
+
+/** A ready-to-use CSV in GrowEasy CRM format (header + example rows). */
+export const SAMPLE_TEMPLATE_CSV = `created_at,name,email,country_code,mobile_without_country_code,company,city,state,country,lead_owner,crm_status,crm_note,data_source,possession_time,description
+2026-05-13 14:20:48,John Doe,john.doe@example.com,+91,9876543210,GrowEasy,Mumbai,Maharashtra,India,test@gmail.com,GOOD_LEAD_FOLLOW_UP,Client is asking to reschedule demo,,,
+2026-05-13 14:25:30,Sarah Johnson,sarah.johnson@example.com,+91,9876543211,Tech Solutions,Bangalore,Karnataka,India,test@gmail.com,DID_NOT_CONNECT,"Person was busy, will try again next week",,,
+2026-05-13 14:35:22,Priya Singh,priya.singh@example.com,+91,9876543213,Enterprise Corp,Pune,Maharashtra,India,test@gmail.com,SALE_DONE,"Deal closed, onboarding in progress",,,
+`;
+
+/** Human-readable byte size, e.g. "2.68 KB". */
+export function formatBytes(bytes: number): string {
+  if (bytes < 1024) return `${bytes} B`;
+  if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(2)} KB`;
+  return `${(bytes / (1024 * 1024)).toFixed(2)} MB`;
+}
 
 /**
  * Parse a File into headers + row objects. Uses streaming under the hood so
@@ -44,7 +63,7 @@ export function parseCsvFile(file: File): Promise<ParsedCsv> {
           reject(new CsvParseError("Could not detect any columns. Is this a valid CSV with a header row?"));
           return;
         }
-        resolve({ headers, rows, filename: file.name });
+        resolve({ headers, rows, filename: file.name, size: file.size });
       },
       error: (err) => reject(new CsvParseError(err.message)),
     });

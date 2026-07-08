@@ -1,9 +1,16 @@
 "use client";
 
 import { useCallback, useState } from "react";
-import { useDropzone } from "react-dropzone";
-import { UploadCloud, FileWarning, Loader2 } from "lucide-react";
-import { parseCsvFile, type ParsedCsv, CsvParseError } from "@/lib/csv";
+import { useDropzone, type FileRejection } from "react-dropzone";
+import { UploadCloud, FileWarning, Loader2, Download } from "lucide-react";
+import {
+  parseCsvFile,
+  type ParsedCsv,
+  CsvParseError,
+  MAX_FILE_BYTES,
+  SAMPLE_TEMPLATE_CSV,
+  downloadText,
+} from "@/lib/csv";
 import { cn } from "@/lib/cn";
 
 interface UploaderProps {
@@ -35,9 +42,14 @@ export function Uploader({ onParsed }: UploaderProps) {
   );
 
   const onDrop = useCallback(
-    (accepted: File[], rejected: { file: File }[]) => {
+    (accepted: File[], rejected: FileRejection[]) => {
       if (rejected.length > 0) {
-        setError("Please upload a single .csv file.");
+        const code = rejected[0].errors[0]?.code;
+        setError(
+          code === "file-too-large"
+            ? "File is larger than 5 MB. Please upload a smaller CSV."
+            : "Please upload a single .csv file.",
+        );
         return;
       }
       if (accepted[0]) handleFile(accepted[0]);
@@ -48,12 +60,17 @@ export function Uploader({ onParsed }: UploaderProps) {
   const { getRootProps, getInputProps, isDragActive, isDragReject } = useDropzone({
     onDrop,
     multiple: false,
+    maxSize: MAX_FILE_BYTES,
     accept: {
       "text/csv": [".csv"],
       "application/vnd.ms-excel": [".csv"],
       "text/plain": [".csv"],
     },
   });
+
+  const downloadTemplate = useCallback(() => {
+    downloadText("groweasy-sample-template.csv", SAMPLE_TEMPLATE_CSV);
+  }, []);
 
   return (
     <div className="space-y-3">
@@ -86,9 +103,22 @@ export function Uploader({ onParsed }: UploaderProps) {
         <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
           or <span className="font-medium text-brand-600 dark:text-brand-400">browse</span> to choose a file
         </p>
-        <p className="mt-4 text-xs text-slate-400 dark:text-slate-500">
+        <p className="mt-4 inline-flex items-center gap-1.5 rounded-full bg-slate-100 px-3 py-1 text-xs text-slate-500 dark:bg-slate-800 dark:text-slate-400">
+          Supported file: .csv (max 5&nbsp;MB)
+        </p>
+        <p className="mt-3 text-xs text-slate-400 dark:text-slate-500">
           Any layout works — Facebook, Google Ads, Excel, real-estate CRM, sales reports…
         </p>
+      </div>
+
+      <div className="flex items-center justify-center">
+        <button
+          type="button"
+          onClick={downloadTemplate}
+          className="inline-flex items-center gap-2 rounded-lg border border-slate-200 bg-white px-4 py-2 text-sm font-medium text-brand-700 transition hover:bg-brand-50 dark:border-slate-700 dark:bg-slate-900 dark:text-brand-300 dark:hover:bg-slate-800"
+        >
+          <Download className="h-4 w-4" /> Download Sample CSV Template
+        </button>
       </div>
 
       {error && (

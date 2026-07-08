@@ -4,6 +4,7 @@ import { useMemo, useState } from "react";
 import { Sparkles, Wrench } from "lucide-react";
 import { CRM_FIELD_META, type ImportedRecord } from "@shared/crm";
 import { VirtualTable, type Column } from "./VirtualTable";
+import { StatusPill } from "./StatusPill";
 import { cn } from "@/lib/cn";
 
 type Filter = "all" | "imported" | "skipped";
@@ -104,6 +105,7 @@ export function ResultsTable({ records }: ResultsTableProps) {
               </span>
             );
           }
+          if (key === "crm_status") return <StatusPill status={row.record.crm_status} />;
           const value = row.record[key as keyof typeof row.record] ?? "";
           if (value === "") return <span className="text-slate-300 dark:text-slate-600">—</span>;
           return value;

@@ -149,7 +149,7 @@ export default function Home() {
               <button
                 type="button"
                 onClick={runImport}
-                className="inline-flex items-center justify-center gap-2 rounded-lg bg-brand-500 px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-brand-600"
+                className="inline-flex items-center justify-center gap-2 rounded-lg bg-accent-500 px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-accent-600"
               >
                 Confirm & Extract with AI <ArrowRight className="h-4 w-4" />
               </button>
