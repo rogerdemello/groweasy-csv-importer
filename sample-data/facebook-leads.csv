@@ -1,0 +1,6 @@
+created_time,full_name,email,phone_number,company_name,city,region,lead_status,ad_campaign
+2026-05-13T14:20:48Z,John Doe,john.doe@example.com,+91 98765 43210,GrowEasy,Mumbai,Maharashtra,Interested - schedule demo,leads_on_demand
+2026-05-13T14:25:30Z,Sarah Johnson,sarah.johnson@example.com,+91 98765 43211,Tech Solutions,Bangalore,Karnataka,No answer - will retry,facebook_campaign_q2
+2026-05-13T14:30:15Z,Rajesh Patel,rajesh.patel@example.com,+91 98765 43212,Startup Inc,Delhi,Delhi,Not interested,leads_on_demand
+2026-05-13T14:35:22Z,Priya Singh,priya.singh@example.com,+91 98765 43213,Enterprise Corp,Pune,Maharashtra,Deal closed,meridian_tower
+2026-05-13T14:40:00Z,Anonymous Enquiry,,,Unknown,,,New,facebook_campaign_q2

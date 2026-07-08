@@ -1,0 +1,20 @@
+# Render blueprint — one web service serving both the Next.js UI and the
+# Express API. Import this repo on https://render.com and it auto-detects.
+services:
+  - type: web
+    name: groweasy-csv-importer
+    runtime: node
+    plan: free
+    buildCommand: npm ci && npm run build
+    startCommand: npm start
+    healthCheckPath: /api/health
+    autoDeploy: true
+    envVars:
+      # Paste your NVIDIA NIM key in the Render dashboard (kept out of git).
+      # If left unset, the app still runs in deterministic MOCK mode.
+      - key: NVIDIA_API_KEY
+        sync: false
+      - key: LLM_MODEL
+        value: meta/llama-3.1-8b-instruct
+      - key: NODE_VERSION
+        value: "20"

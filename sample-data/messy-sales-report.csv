@@ -1,0 +1,6 @@
+Sl No,Customer,Mobile,Mail,Firm,Town,ST,Owner,Stage,Notes,Source Channel,Lead Date
+1,"Doe, Jane",00447700900123,jane@example.co.uk,Acme Ltd,London,,alex@groweasy.ai,Qualified - follow up next week,"Called twice, wants callback Monday",Website Form,2026/06/01 09:15
+2,Mohammed Ali,+971 50 123 4567,mohammed.ali@example.ae,Gulf Traders,Dubai,,alex@groweasy.ai,Won,Signed annual contract,Referral,2026/06/01 10:00
+3,Li Wei,+86 138 0013 8000,liwei@example.cn; li.backup@example.cn,Shanghai Co,Shanghai,,sam@groweasy.ai,Ringing - no response,,Cold Outreach,2026/06/01 11:30
+4,Empty Row,,,,,,,,,,
+5,Carlos Mendez,,carlos.mendez@example.mx,Mendez SA,Mexico City,,sam@groweasy.ai,Junk lead,Wrong number provided,Purchased List,2026/06/01 12:45
